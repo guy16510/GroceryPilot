@@ -1,0 +1,10 @@
+# Next milestones
+
+1. Export full invoices, confirm real schema including substitutions/returns, reconcile 10 historical orders against Walmart and verify ID coverage. Test a two-product affiliate cart link manually; if unsupported, use product links and official gateway rather than private automation.
+2. Implement local companion for Invoice MCP (same device as extension). User enables collection, then export normalized invoices over authenticated private channel or atomically drop JSON into inbox. Keep browser relay loopback-only. Verify permissions and rate limits, no automated scraping workaround. Consider Gmail receipt ingestion only if it includes item-level details; read-only scoped OAuth, no full mailbox storage.
+3. Add import provenance/history, order revision diffs, source freshness, account isolation, automatic scheduled collection only if supported, dedupe receipts across multiple sources, and stronger line status normalization. Preserve genuine duplicate scans. Track substitution requested vs delivered IDs explicitly when available.
+4. Add price observations, package size/unit parsing, price per unit, monthly spend/category/fulfillment metrics, stock-up detection, seasonal items, holdout backtests and confidence calibration. No manual inventory needed. Distinguish data gaps and missing products from zero stock.
+5. Add persistent order drafts with optimistic concurrency, per-product feedback, budget and category exclusions, one-click review, optional Home Assistant REST sensors. Integrate official Agent Gateway only after authorized access. Keep human checkout.
+6. Add dependency lockfile, integration tests with real redacted fixture, encrypted backups, TLS deployment guidance, restore drill. GPU optional for natural language requests only, not needed for initial prediction.
+
+Acceptance: zero hardware, no Walmart password in server, at most one weekly review, repeat imports idempotent, no one-off recommendations by default, no automatic purchase, no secrets or real invoices in the public repo.

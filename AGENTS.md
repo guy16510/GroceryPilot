@@ -1,0 +1,2 @@
+# Engineering constraints
+Node.js, local-first, minimal maintenance. No cameras or pantry scanning. Prefer existing supported tools. Never commit user data, exports, cookies, credentials or HA tokens. Do not bypass website controls. No automatic checkout. Tests use synthetic/redacted fixtures only. Validate upstream interfaces with actual documented schema. Preserve exact Walmart IDs and flag unknowns. Don't claim live availability based on history. Keep changes scoped, tested and documented.

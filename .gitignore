@@ -1,0 +1,14 @@
+node_modules/
+.env
+.env.*
+!.env.example
+data/
+inbox/
+*.sqlite*
+*.db*
+*.csv
+*.jsonl
+receipts/
+cookies*
+auth.json
+storage-state*
