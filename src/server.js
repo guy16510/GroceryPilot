@@ -53,6 +53,7 @@ const server=http.createServer(async(req,res)=>{
     if(req.method==='GET'&&u.pathname==='/app.js')return send(res,200,js,'application/javascript; charset=utf-8');
     if(req.method==='GET'&&u.pathname==='/api/summary')return send(res,200,summary());
     if(req.method==='GET'&&u.pathname==='/api/orders')return send(res,200,store.orders());
+    if(req.method==='GET'&&u.pathname==='/api/revisions'){const id=u.searchParams.get('order');if(!id)throw new Error('Order ID required');return send(res,200,store.revisions(id));}
     if(req.method==='POST'&&u.pathname==='/api/import'){if(req.headers['content-type']!=='application/octet-stream')throw new Error('Expected application/octet-stream');return send(res,200,ingest(await body(req),u.searchParams.get('filename')??'orders.json'));}
     if(req.method==='POST'&&u.pathname==='/api/cart'){
       if(!req.headers['content-type']?.startsWith('application/json'))throw new Error('Expected JSON');

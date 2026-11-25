@@ -27,3 +27,11 @@ Authenticated GET /api/summary, GET /api/orders. POST /api/import?filename=order
 ## Tests and scope
 
 Node.js 24, built-in SQLite, csv-parse. npm install && npm test. CI also builds Docker. This is an MVP, not a verified live Walmart integration. See docs/RESEARCH.md and docs/NEXT.md. No automated Walmart login, private API calls, bot bypass, or checkout. Reuse supported integrations rather than maintaining scrapers.
+
+## Optional read-only MCP sync companion
+
+Run the companion on the machine running the Walmart Invoice Exporter browser extension, not on the NAS unless Chrome runs there too. Install Node 24, clone this repo, run npm install, enable the extension's AI access setting and keep the separate collection-actions toggle off. Collect invoices in the extension itself. The companion reuses its documented localhost MCP relay, reads full saved invoices, paginates, verifies the selected account, strips payment/address fields before forwarding, and skips summaries. It never invokes collection actions or accesses Walmart directly.
+
+Set WALMART_INVOICE_MCP_TOKEN (the extension's pairing token) as an environment variable; run npm run sync:invoices -- --accounts to find the account key. Then set GROCERY_ACCOUNT_KEY to that key. Set either GROCERY_INBOX to a privately mounted NAS inbox directory or GROCERY_URL to your private HTTPS dashboard (or localhost SSH tunnel) and GROCERY_APP_PASSWORD to the app password. Optionally GROCERY_SINCE=YYYY-MM-DD limits the read. Run npm run sync:invoices. Use your OS task scheduler to run this once daily, while the signed-in browser extension is available. No relay ports should be exposed to your LAN. The helper is implemented against the documented MCP and extension source; live browser pairing and transport still need validation. Browser collection itself remains user-initiated; scheduling the read cannot make new invoices appear if the extension hasn't collected them.
+
+Order snapshot revisions are now retained in SQLite, with observed time and source. GET /api/revisions?order=ORDER_ID returns normalized revisions. Raw file archives are still private and may contain sensitive information when importing direct exports. The companion sends only the allowlisted invoice fields.

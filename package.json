@@ -8,9 +8,14 @@
   },
   "scripts": {
     "start": "node src/server.js",
-    "test": "node --test"
+    "test": "node --test",
+    "sync:invoices": "node tools/sync-invoices.js"
   },
   "dependencies": {
     "csv-parse": "^6.1.0"
+  },
+  "optionalDependencies": {
+    "@modelcontextprotocol/sdk": "1.29.0",
+    "walmart-invoice-mcp": "0.2.0"
   }
 }
